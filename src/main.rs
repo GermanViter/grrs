@@ -17,7 +17,7 @@ fn main() {
     out_put_file(path, pattern);
 }
 
-//fn generate_lines(pattern: String, path: String) {
+// fn generate_lines(pattern: String, path: String) {
 //    let args = Cli::parse();
 //    let reader = std::fs::read_to_string(path).expect("could not read file");
 //
@@ -35,7 +35,10 @@ fn out_put_file(path: String, pattern: String) -> std::io::Result<()> {
     for line in reader.lines() {
         let line_content = line?;
         if line_content.contains(&pattern) {
-            println!("{line_content}");
+            match line_content {
+                Ok(content) => { println!("Result: {content}"); }
+                Err(error) => { println!("oh noes: {error}"); }
+            }
         }
     }
 
