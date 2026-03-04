@@ -19,13 +19,9 @@ fn main() {
 
 fn generate_lines(pattern: String, path: String) -> Result<(), Box<dyn std::error::Error>> {
    let args = Cli::parse();
-   let reader = std::fs::read_to_string(path);
+   let reader = std::fs::read_to_string(path)?;
 
-   let content = match reader {
-       Ok(content) => { println!("File content: {}", content); }
-       Err(error) => { return Err(error.into()); }
-   };
-   println!("file content: {:?}", content);
+   println!("file content: {:?}", reader);
    Ok(())
 }
 
