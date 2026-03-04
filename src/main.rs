@@ -17,16 +17,16 @@ fn main() {
     out_put_file(path, pattern);
 }
 
-fn generate_lines(pattern: String, path: String) {
-    let args = Cli::parse();
-    let reader = std::fs::read_to_string(path).expect("could not read file");
-
-    for line in reader.lines() {
-        if line.contains(&args.pattern) {
-            println!("{}", line);
-        }
-    }
-}
+//fn generate_lines(pattern: String, path: String) {
+//    let args = Cli::parse();
+//    let reader = std::fs::read_to_string(path).expect("could not read file");
+//
+//    for line in reader.lines() {
+//        if line.contains(&args.pattern) {
+//            println!("{}", line);
+//        }
+//    }
+//}
 
 fn out_put_file(path: String, pattern: String) -> std::io::Result<()> {
     let file = File::open(path)?;
