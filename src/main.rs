@@ -17,14 +17,16 @@ fn main() {
     //out_put_file(path, pattern);
 }
 
-fn generate_lines(pattern: String, path: String) {
+fn generate_lines(pattern: String, path: String) -> Result<(), Box<dyn std::error::Error>> {
    let args = Cli::parse();
    let reader = std::fs::read_to_string(path);
 
-   match reader {
+   let content = match reader {
        Ok(content) => { println!("File content: {}", content); }
-       Err(error) => { println!("Oh noes: {}", error); }
-   }
+       Err(error) => { return Err(error.into()); }
+   };
+   println!("file content: {:?}", content);
+   Ok(())
 }
 
 //fn out_put_file(path: String, pattern: String) -> std::io::Result<()> {
