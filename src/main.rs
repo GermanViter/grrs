@@ -4,6 +4,10 @@ use std::fs::File;
 
 
 #[derive(Parser)]
+#[derive(Debug)]
+
+struct CustomError(String);
+
 struct Cli {
     pattern: String,
     path: std::path::PathBuf,
@@ -17,9 +21,10 @@ fn main() {
     //out_put_file(path, pattern);
 }
 
-fn generate_lines(pattern: String, path: String) -> Result<(), Box<dyn std::error::Error>> {
+fn generate_lines(pattern: String, path: String) -> Result<(), CustomError> {
    let args = Cli::parse();
-   let reader = std::fs::read_to_string(path)?;
+   let reader = std::fs::read_to_string(path)
+       .map_err(|err| CustomError(format!("Error reading `{}`: {}", path, err)))?;
 
    println!("file content: {:?}", reader);
    Ok(())
